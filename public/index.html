@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#626873">
+  <meta name="description" content="Для любимой Енви ❤">
+  <meta property="og:title" content="Для любимой Енви ❤">
+  <meta property="og:description" content="Маленький сайт с любовью. Загляни и оставь послание.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E❤%3C/text%3E%3C/svg%3E">
+  <title>Для любимой Енви ❤</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --white: #fffaff;
+      --glass: rgba(255, 255, 255, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      padding: 28px 18px;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      position: relative;
+      isolation: isolate;
+      background:
+        radial-gradient(ellipse at 36% 40%, rgba(225, 228, 234, .25), transparent 38%),
+        linear-gradient(135deg, #484e58 0%, #777e89 50%, #424750 100%);
+      color: var(--white);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      transition: background .7s ease;
+    }
+
+    body[data-theme="violet"] {
+      background:
+        radial-gradient(ellipse at 36% 40%, rgba(255, 174, 220, .27), transparent 38%),
+        linear-gradient(135deg, #667eea 0%, #764ba2 52%, #f093fb 100%);
+    }
+
+    body[data-theme="rose"] {
+      background:
+        radial-gradient(ellipse at 36% 40%, rgba(255, 218, 230, .27), transparent 38%),
+        linear-gradient(135deg, #a94b70 0%, #df7b91 50%, #b6678f 100%);
+    }
+
+    body[data-theme="night"] {
+      background:
+        radial-gradient(ellipse at 36% 40%, rgba(158, 132, 255, .22), transparent 38%),
+        linear-gradient(135deg, #171a43 0%, #352561 52%, #714b8f 100%);
+    }
+
+    .sparkles {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 0 12px 2px rgba(255, 255, 255, .8);
+      animation: twinkle 2.8s ease-in-out infinite;
+    }
+
+    .sparkle:nth-child(1) { top: 14%; left: 13%; animation-delay: .1s; }
+    .sparkle:nth-child(2) { top: 27%; left: 87%; animation-delay: 1.3s; }
+    .sparkle:nth-child(3) { top: 71%; left: 9%; animation-delay: .8s; }
+    .sparkle:nth-child(4) { top: 82%; left: 91%; animation-delay: 1.8s; }
+    .sparkle:nth-child(5) { top: 11%; left: 67%; animation-delay: 2.1s; }
+    .sparkle:nth-child(6) { top: 77%; left: 31%; animation-delay: .5s; }
+    .sparkle:nth-child(7) { top: 49%; left: 94%; animation-delay: 1s; }
+    .sparkle:nth-child(8) { top: 91%; left: 58%; animation-delay: 2.4s; }
+
+    .glow {
+      position: fixed;
+      z-index: -1;
+      width: min(76vw, 410px);
+      aspect-ratio: 1;
+      top: 50%;
+      left: 40%;
+      transform: translate(-50%, -51%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,.18), transparent 69%);
+      pointer-events: none;
+      animation: glow 4s ease-in-out infinite;
+    }
+
+    .scene {
+      width: min(100%, 1000px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      gap: 34px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    main {
+      width: 100%;
+      padding: clamp(20px, 3vw, 34px) clamp(10px, 3vw, 34px);
+      text-align: center;
+      animation: arrive .9s ease-out both;
+    }
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: clamp(2.35rem, 7vw, 4.1rem);
+      line-height: 1.08;
+      letter-spacing: .015em;
+      text-shadow: 0 5px 22px rgba(30, 29, 34, .35);
+    }
+
+    .handle {
+      display: inline-block;
+      margin: 0 auto 12px;
+      padding: 5px 13px;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.96);
+      font-size: .97rem;
+      letter-spacing: .02em;
+    }
+
+    .heart {
+      display: block;
+      position: relative;
+      width: 190px;
+      height: 166px;
+      margin: 0 auto;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      filter: drop-shadow(0 10px 24px rgba(255, 27, 96, .48));
+      animation: heartbeat 1.9s ease-in-out infinite;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      width: 95px;
+      height: 152px;
+      border-radius: 95px 95px 0 0;
+      background: linear-gradient(145deg, #ff91a9 3%, #ff1744 54%, #ec1458 100%);
+    }
+
+    .heart::before {
+      left: 95px;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+
+    .heart::after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+
+    .heart:hover { filter: drop-shadow(0 12px 34px rgba(255, 27, 96, .72)); }
+
+    .heart:focus-visible,
+    .button:focus-visible,
+    summary:focus-visible,
+    .catch-heart:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 5px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      clip-path: inset(50%);
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      font-size: clamp(1.12rem, 4vw, 1.4rem);
+      color: rgba(255, 255, 255, .96);
+      text-shadow: 0 2px 12px rgba(30, 29, 34, .38);
+    }
+
+
+
+    .controls {
+      margin: 12px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+    }
+
+    .button {
+      min-height: 43px;
+      padding: 9px 15px;
+      border: 1px solid rgba(255, 255, 255, .5);
+      border-radius: 999px;
+      background: var(--glass);
+      color: white;
+      font: inherit;
+      font-size: .94rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 7px 22px rgba(30, 29, 34, .16);
+      backdrop-filter: blur(10px);
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, .22);
+      border-color: rgba(255, 255, 255, .84);
+    }
+
+    .button[aria-pressed="true"] {
+      background: rgba(255, 255, 255, .27);
+      border-color: white;
+    }
+
+    .custom-note {
+      max-width: 540px;
+      margin: 13px auto 0;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, .23);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, .09);
+      backdrop-filter: blur(9px);
+    }
+
+    .custom-note summary {
+      padding: 11px 15px;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 600;
+      list-style: none;
+    }
+
+    .custom-note summary::-webkit-details-marker { display: none; }
+    .custom-note summary::after { content: "＋"; margin-left: 8px; opacity: .8; }
+    .custom-note[open] summary::after { content: "−"; }
+
+    .custom-form { padding: 0 13px 13px; }
+
+    .sender-field {
+      display: block;
+      width: 100%;
+      height: 43px;
+      margin: 0 0 8px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, .46);
+      border-radius: 12px;
+      background: rgba(35, 37, 42, .28);
+      color: white;
+      font: inherit;
+    }
+
+    .sender-field::placeholder { color: rgba(255, 255, 255, .74); }
+    .sender-field:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+
+    .custom-form textarea {
+      display: block;
+      width: 100%;
+      min-height: 78px;
+      resize: vertical;
+      padding: 11px 12px;
+      border: 1px solid rgba(255, 255, 255, .46);
+      border-radius: 12px;
+      background: rgba(35, 37, 42, .28);
+      color: white;
+      font: inherit;
+      line-height: 1.45;
+    }
+
+    .custom-form textarea::placeholder { color: rgba(255, 255, 255, .74); }
+    .shared-status { min-height: 1.4em; margin: 8px auto 0; text-align: center; font-size: .88rem; color: rgba(255,255,255,.88); text-shadow: 0 2px 8px rgba(20,21,25,.42); }
+    .shared-status.is-offline { color: #fff0c2; }
+    .custom-form textarea:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+    .custom-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 9px; }
+    .custom-actions .button { min-height: 38px; padding: 7px 13px; font-size: .9rem; }
+    .custom-status { min-height: 1.3em; margin: 8px 0 0; text-align: center; font-size: .85rem; opacity: .92; }
+
+    .game-panel {
+      max-width: 540px;
+      margin: 11px auto 0;
+      padding: 10px 15px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .12);
+      font-size: .93rem;
+      text-shadow: 0 1px 8px rgba(30, 29, 34, .4);
+    }
+
+    .game-panel[hidden] { display: none; }
+    .game-stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 17px; }
+    .game-progress { display: block; width: min(100%, 310px); height: 7px; margin: 9px auto 0; accent-color: #ffd1e4; }
+
+
+    .together {
+      display: none;
+      margin: 10px auto 0;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.95);
+      text-shadow: 0 2px 10px rgba(30,29,34,.4);
+    }
+    .together.is-on { display: block; }
+    .together strong { font-size: 1.5em; font-variant-numeric: tabular-nums; }
+
+    .shooting-star {
+      position: absolute;
+      width: 130px;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), #fff);
+      box-shadow: 0 0 8px 1px rgba(255,255,255,.7);
+      opacity: 0;
+      animation: shoot 1.3s ease-out forwards;
+    }
+
+    @keyframes shoot {
+      0% { opacity: 0; transform: translate(0, 0) rotate(28deg); }
+      15% { opacity: 1; }
+      100% { opacity: 0; transform: translate(340px, 181px) rotate(28deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) { .shooting-star { display: none; } }
+
+    .petal {
+      position: fixed;
+      top: -52px;
+      z-index: 2;
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      animation: fall linear forwards;
+      filter: drop-shadow(0 3px 7px rgba(30, 29, 34, .2));
+    }
+
+    .heart-particle {
+      position: fixed;
+      z-index: 5;
+      pointer-events: none;
+      user-select: none;
+      font-size: 1.35rem;
+      animation: float-up 1.2s ease-out forwards;
+    }
+
+    .catch-heart {
+      position: fixed;
+      z-index: 8;
+      width: 58px;
+      height: 58px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, .78);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .2);
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 6px 22px rgba(30, 29, 34, .28);
+      backdrop-filter: blur(8px);
+      animation: game-pop .45s ease-out both;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .profile-card {
+      width: 250px;
+      justify-self: center;
+      position: relative;
+      z-index: 1;
+      transform: rotate(5deg);
+      filter: drop-shadow(0 17px 25px rgba(24, 25, 30, .35));
+      animation: card-arrive 1.2s .2s ease-out both;
+    }
+
+    .portrait-arrows {
+      position: absolute;
+      inset: -58px;
+      z-index: 0;
+      width: calc(100% + 116px);
+      height: calc(100% + 116px);
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .portrait-arrows path {
+      fill: none;
+      stroke: rgba(255, 247, 253, .92);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 7 10;
+      animation: arrow-flow 1.5s linear infinite;
+      filter: drop-shadow(0 2px 3px rgba(45, 35, 48, .4));
+    }
+
+    .photo-frame {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, .85);
+      border-radius: 19px;
+      background: rgba(250, 249, 252, .92);
+      box-shadow: 0 12px 35px rgba(20, 21, 25, .3);
+    }
+
+    .photo-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 13px;
+    }
+
+    .photo-frame figcaption {
+      padding: 7px 3px 2px;
+      color: #47434b;
+      text-align: center;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+
+    .photo-viewer {
+      width: min(92vw, 520px);
+      max-width: 92vw;
+      max-height: 92vh;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 20px;
+      background: #22232d;
+      color: white;
+      box-shadow: 0 20px 70px rgba(0,0,0,.55);
+    }
+
+    .photo-viewer::backdrop { background: rgba(10, 10, 18, .78); backdrop-filter: blur(5px); }
+    .photo-viewer-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-size: .9rem; }
+    .photo-viewer-close { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; background: rgba(255,255,255,.12); color: white; font: inherit; font-size: 1.4rem; cursor: pointer; }
+    .photo-viewer img { display: block; width: min(360px, 100%); max-width: 100%; height: auto; max-height: none; margin: 0 auto; object-fit: contain; }
+
+    .falling-letter {
+      position: fixed;
+      top: -230px;
+      z-index: 30;
+      width: min(280px, calc(100vw - 30px));
+      padding: 18px 18px 16px;
+      border: 1px solid #d8cfba;
+      border-radius: 12px 12px 18px 12px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.94), rgba(249,243,226,.97)),
+        #fffaf0;
+      color: #45434a;
+      box-shadow: 0 12px 38px rgba(20, 21, 25, .28);
+      pointer-events: none;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font: 500 1rem/1.5 Georgia, "Times New Roman", serif;
+      animation: letter-fall 7.5s cubic-bezier(.3,.1,.55,.95) forwards;
+    }
+
+    .falling-letter::before {
+      content: "✉";
+      display: block;
+      margin-bottom: 7px;
+      color: #a65e75;
+      text-align: center;
+      font: 1.3rem/1 "Segoe UI", sans-serif;
+    }
+
+    .falling-from {
+      display: block;
+      margin-bottom: 8px;
+      color: #a65e75;
+      text-align: center;
+      font: 700 .8rem/1.3 "Segoe UI", sans-serif;
+    }
+
+    .falling-text { margin: 0; }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      22% { transform: scale(1.06); }
+      42% { transform: scale(1); }
+      62% { transform: scale(1.09); }
+    }
+
+    @keyframes fall {
+      from { opacity: 0; transform: translateY(-3vh) rotate(0deg); }
+      8% { opacity: .95; }
+      to { opacity: 0; transform: translateY(110vh) rotate(360deg); }
+    }
+
+    @keyframes float-up {
+      from { opacity: 1; transform: translate(-50%, 0) scale(.65); }
+      to { opacity: 0; transform: translate(calc(-50% + var(--drift)), -110px) scale(1.15); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: .18; transform: scale(.65); }
+      50% { opacity: .95; transform: scale(1.3); }
+    }
+
+    @keyframes glow { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(14px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes card-arrive {
+      from { opacity: 0; transform: translate(18px, 12px) rotate(0deg); }
+      to { opacity: 1; transform: translate(0, 0) rotate(5deg); }
+    }
+
+    @keyframes arrow-flow {
+      to { stroke-dashoffset: -34; }
+    }
+
+    @keyframes game-pop {
+      from { opacity: 0; transform: scale(.45) rotate(-18deg); }
+      to { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    @keyframes letter-fall {
+      0% { opacity: 0; transform: translateY(-8vh) rotate(var(--tilt)); }
+      8% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(115vh) rotate(var(--tilt)); }
+    }
+
+    @media (max-width: 1050px) {
+      body { padding: 22px 14px; }
+      .scene { max-width: 760px; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+      .profile-card { width: min(280px, 66vw); margin: 4px auto 18px; }
+      .glow { left: 50%; }
+    }
+
+    @media (max-width: 520px) {
+      main { padding: 16px 4px; }
+      h1 { font-size: clamp(2.25rem, 11vw, 3.1rem); }
+      .heart { width: 160px; height: 140px; }
+      .heart::before, .heart::after { width: 80px; height: 128px; }
+      .heart::before { left: 80px; }
+      .controls { gap: 8px; }
+      .button { padding-inline: 12px; font-size: .9rem; }
+      .custom-actions .button { padding-inline: 11px; }
+      .profile-card { width: min(220px, 62vw); }
+      .photo-viewer {
+      width: min(92vw, 520px);
+      max-width: 92vw;
+      max-height: 92vh;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 20px;
+      background: #22232d;
+      color: white;
+      box-shadow: 0 20px 70px rgba(0,0,0,.55);
+    }
+
+    .photo-viewer::backdrop { background: rgba(10, 10, 18, .78); backdrop-filter: blur(5px); }
+    .photo-viewer-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-size: .9rem; }
+    .photo-viewer-close { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; background: rgba(255,255,255,.12); color: white; font: inherit; font-size: 1.4rem; cursor: pointer; }
+    .photo-viewer img { display: block; width: min(360px, 100%); max-width: 100%; height: auto; max-height: none; margin: 0 auto; object-fit: contain; }
+
+    .falling-letter { font-size: .95rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+      .petal { top: 15vh; opacity: .9; animation: none !important; }
+      .catch-heart { animation: none !important; }
+      .photo-viewer {
+      width: min(92vw, 520px);
+      max-width: 92vw;
+      max-height: 92vh;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 20px;
+      background: #22232d;
+      color: white;
+      box-shadow: 0 20px 70px rgba(0,0,0,.55);
+    }
+
+    .photo-viewer::backdrop { background: rgba(10, 10, 18, .78); backdrop-filter: blur(5px); }
+    .photo-viewer-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-size: .9rem; }
+    .photo-viewer-close { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; background: rgba(255,255,255,.12); color: white; font: inherit; font-size: 1.4rem; cursor: pointer; }
+    .photo-viewer img { display: block; width: min(360px, 100%); max-width: 100%; height: auto; max-height: none; margin: 0 auto; object-fit: contain; }
+
+    .falling-letter {
+        top: 16vh !important;
+        left: 50% !important;
+        opacity: 1;
+        transform: translateX(-50%) !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body data-theme="night">
+  <div class="sparkles" aria-hidden="true">
+    <span class="sparkle"></span><span class="sparkle"></span>
+    <span class="sparkle"></span><span class="sparkle"></span>
+    <span class="sparkle"></span><span class="sparkle"></span>
+    <span class="sparkle"></span><span class="sparkle"></span>
+  </div>
+  <div class="glow" aria-hidden="true"></div>
+
+  <div class="scene">
+    <main>
+      <h1>Любимой Енви</h1>
+      <div class="handle">@holynenvy</div>
+      <button class="heart" id="heart" type="button" aria-label="Открыть признание для Енви">
+        <span class="visually-hidden">Нажми на сердце</span>
+      </button>
+      <p class="subtitle">С любовью ❤</p>
+      <p class="together" id="together"></p>
+
+      <p class="shared-status" id="sharedStatus" role="status" aria-live="polite">Подключаем общую ленту…</p>
+
+      <div class="controls" aria-label="Романтические сюрпризы">
+        <button class="button" id="petalToggle" type="button" aria-pressed="false">🌹 Устроить дождь из роз</button>
+        <button class="button" id="themeToggle" type="button">🎨 Цвет: ночь</button>
+        <button class="button" id="gameToggle" type="button">💘 Собрать сердечки</button>
+      </div>
+
+      <div class="game-panel" id="gamePanel" hidden>
+        <div class="game-stats">
+          <span>⏱ Осталось: <strong id="gameTime">15</strong> сек.</span>
+          <span>💗 Собрано: <strong id="gameScore">0</strong></span>
+          <span>🏆 Рекорд: <strong id="gameBest">0</strong></span>
+        </div>
+        <progress class="game-progress" id="gameProgress" max="15" value="15" aria-label="Оставшееся время игры"></progress>
+        <div id="gameMessage" role="status" aria-live="polite">Лови сердечки, пока не вышло время!</div>
+      </div>
+
+      <details class="custom-note" id="customDetails">
+        <summary>✍️ Написать послание</summary>
+        <form class="custom-form" id="customForm">
+          <label class="visually-hidden" for="senderName">Твоё имя или ник</label>
+          <input class="sender-field" id="senderName" maxlength="28" autocomplete="nickname" placeholder="Имя или ник (необязательно)">
+          <label class="visually-hidden" for="customMessage">Послание для Енви</label>
+          <textarea id="customMessage" maxlength="240" placeholder="Напиши свои слова для Енви…"></textarea>
+          <div class="custom-actions">
+            <button class="button" id="sendLetter" type="submit">💌 Отправить всем</button>
+            <button class="button" id="clearMessage" type="button">Очистить</button>
+          </div>
+          <p class="custom-status" id="customStatus" aria-live="polite">Новое послание появится у всех посетителей общей страницы.</p>
+        </form>
+      </details>
+    </main>
+
+    <aside class="profile-card" aria-label="Скриншот профиля Енви">
+      <svg class="portrait-arrows" viewBox="0 0 460 900" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <marker id="arrowTip" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" orient="auto">
+            <path d="M2 2 L10 6 L2 10" fill="none" stroke="rgba(255,247,253,.96)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </marker>
+        </defs>
+        <path d="M6 135 C34 143 54 163 90 197" marker-end="url(#arrowTip)"></path>
+        <path d="M454 135 C426 143 406 163 370 197" marker-end="url(#arrowTip)"></path>
+        <path d="M6 765 C34 755 54 733 90 699" marker-end="url(#arrowTip)"></path>
+        <path d="M454 765 C426 755 406 733 370 699" marker-end="url(#arrowTip)"></path>
+        <path d="M230 5 C221 34 218 66 224 105" marker-end="url(#arrowTip)"></path>
+        <path d="M230 895 C239 865 241 820 232 750" marker-end="url(#arrowTip)"></path>
+      </svg>
+      <figure class="photo-frame">
+        <button class="photo-zoom" id="photoZoom" type="button" aria-label="Открыть скриншот крупно"><img src="/profile.png" alt="Профиль Енви из присланного скриншота"></button>
+        <figcaption>это она 💗 · нажми, чтобы увеличить</figcaption>
+      </figure>
+    </aside>
+  </div>
+
+  <dialog class="photo-viewer" id="photoViewer" aria-label="Скриншот профиля Енви">
+    <div class="photo-viewer-bar">
+      <span>Скриншот в исходном разрешении</span>
+      <button class="photo-viewer-close" id="photoViewerClose" type="button" aria-label="Закрыть">×</button>
+    </div>
+    <img id="photoViewerImage" alt="Увеличенный скриншот профиля Енви">
+  </dialog>
+  <script>
+    const heart = document.querySelector("#heart");
+    const petalToggle = document.querySelector("#petalToggle");
+    const themeToggle = document.querySelector("#themeToggle");
+    const gameToggle = document.querySelector("#gameToggle");
+    const gamePanel = document.querySelector("#gamePanel");
+    const gameTime = document.querySelector("#gameTime");
+    const gameScore = document.querySelector("#gameScore");
+    const gameBest = document.querySelector("#gameBest");
+    const gameProgress = document.querySelector("#gameProgress");
+    const gameMessage = document.querySelector("#gameMessage");
+    const sharedStatus = document.querySelector("#sharedStatus");
+    const customForm = document.querySelector("#customForm");
+    const customMessageField = document.querySelector("#customMessage");
+    const senderNameField = document.querySelector("#senderName");
+    const customStatus = document.querySelector("#customStatus");
+    const sendLetterButton = document.querySelector("#sendLetter");
+    const photoZoom = document.querySelector("#photoZoom");
+    const photoViewer = document.querySelector("#photoViewer");
+    const photoViewerImage = document.querySelector("#photoViewerImage");
+
+    const themes = [
+      { id: "night", label: "ночь" },
+      { id: "silver", label: "серый" },
+      { id: "violet", label: "сирень" },
+      { id: "rose", label: "роза" }
+    ];
+
+    const isLocalFile = location.protocol === "file:";
+    const localMessagesKey = "envy-shared-page-messages";
+    const seenMessageIds = new Set();
+    const messagePool = [];
+    let rainTimer = null;
+    let rainIndex = 0;
+    let petalTimer = null;
+    let themeIndex = 0;
+    let sharedReady = false;
+    let gameRunning = false;
+    let gameClock = null;
+    let gameSeconds = 15;
+    let score = 0;
+    let bestScore = Number(storageGet("envy-love-best") || 0);
+    let gameHeart = null;
+
+    gameBest.textContent = bestScore;
+
+    function storageGet(key) {
+      try { return localStorage.getItem(key); }
+      catch { return null; }
+    }
+
+    function storageSet(key, value) {
+      try { localStorage.setItem(key, value); return true; }
+      catch { return false; }
+    }
+
+    heart.addEventListener("click", (event) => {
+      createHeartBurst(event.clientX, event.clientY);
+    });
+
+    function createHeartBurst(x, y) {
+      for (let i = 0; i < 5; i++) {
+        const particle = document.createElement("span");
+        particle.className = "heart-particle";
+        particle.textContent = i % 2 ? "💕" : "❤";
+        particle.setAttribute("aria-hidden", "true");
+        particle.style.left = x + (Math.random() - .5) * 70 + "px";
+        particle.style.top = y + (Math.random() - .5) * 30 + "px";
+        particle.style.setProperty("--drift", (Math.random() - .5) * 100 + "px");
+        document.body.appendChild(particle);
+        particle.addEventListener("animationend", () => particle.remove(), { once: true });
+        window.setTimeout(() => particle.remove(), 1500);
+      }
+    }
+
+    function createPetal() {
+      const petal = document.createElement("span");
+      petal.className = "petal";
+      petal.textContent = Math.random() < .22 ? "🌸" : "🌹";
+      petal.setAttribute("aria-hidden", "true");
+      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.animationDuration = 4 + Math.random() * 2.5 + "s";
+      document.body.appendChild(petal);
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.setTimeout(() => petal.remove(), reduceMotion ? 1500 : 7000);
+    }
+
+    petalToggle.addEventListener("click", () => {
+      const isOn = petalToggle.getAttribute("aria-pressed") === "true";
+
+      if (isOn) {
+        window.clearInterval(petalTimer);
+        petalTimer = null;
+        document.querySelectorAll(".petal").forEach((petal) => petal.remove());
+        petalToggle.setAttribute("aria-pressed", "false");
+        petalToggle.textContent = "🌹 Устроить дождь из роз";
+        return;
+      }
+
+      createPetal();
+      petalTimer = window.setInterval(createPetal, 650);
+      petalToggle.setAttribute("aria-pressed", "true");
+      petalToggle.textContent = "🌹 Остановить лепестки";
+    });
+
+    themeToggle.addEventListener("click", () => {
+      themeIndex = (themeIndex + 1) % themes.length;
+      const theme = themes[themeIndex];
+      document.body.dataset.theme = theme.id;
+      themeToggle.textContent = "🎨 Цвет: " + theme.label;
+    });
+
+    function scheduleFallingLetter(entry, delay) {
+      if (!entry || !entry.text) return;
+      const id = String(entry.id);
+      if (seenMessageIds.has(id)) return;
+      seenMessageIds.add(id);
+      if (seenMessageIds.size > 250) {
+        seenMessageIds.delete(seenMessageIds.values().next().value);
+      }
+      messagePool.push(entry);
+      if (messagePool.length > 24) messagePool.shift();
+      window.setTimeout(() => createFallingLetter(entry), delay || 0);
+      startMessageRain();
+    }
+
+    function startMessageRain() {
+      if (rainTimer || messagePool.length === 0) return;
+      rainTimer = window.setInterval(() => {
+        if (messagePool.length === 0) return;
+        const entry = messagePool[rainIndex % messagePool.length];
+        rainIndex += 1;
+        createFallingLetter(entry);
+      }, 2800);
+    }
+
+    function createFallingLetter(entry) {
+      const letter = document.createElement("article");
+      letter.className = "falling-letter";
+      letter.setAttribute("aria-hidden", "true");
+
+      const from = document.createElement("span");
+      from.className = "falling-from";
+      from.textContent = (entry.name || "Аноним") + " пишет для Енви";
+
+      const message = document.createElement("p");
+      message.className = "falling-text";
+      message.textContent = entry.text || "";
+
+      letter.append(from, message);
+      const width = Math.max(180, Math.min(280, window.innerWidth - 30));
+      letter.style.width = width + "px";
+      letter.style.left = 15 + Math.random() * Math.max(0, window.innerWidth - width - 30) + "px";
+      letter.style.setProperty("--tilt", (Math.random() * 12 - 6) + "deg");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.body.appendChild(letter);
+      window.setTimeout(() => letter.remove(), reduceMotion ? 4200 : 8000);
+    }
+
+    function readLocalMessages() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(localMessagesKey) || "[]");
+        return Array.isArray(stored) ? stored.filter((entry) => entry && entry.text).slice(-500) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveLocalMessage(entry) {
+      try {
+        const stored = readLocalMessages();
+        stored.push(entry);
+        localStorage.setItem(localMessagesKey, JSON.stringify(stored.slice(-500)));
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    photoZoom.addEventListener("click", () => {
+      photoViewerImage.src = photoZoom.querySelector("img").src;
+      photoViewer.showModal();
+    });
+    document.querySelector("#photoViewerClose").addEventListener("click", () => photoViewer.close());
+    photoViewer.addEventListener("click", (event) => {
+      if (event.target === photoViewer) photoViewer.close();
+    });
+    async function connectSharedBoard() {
+      if (isLocalFile) {
+        const localMessages = readLocalMessages();
+        sharedStatus.textContent = "Локально: послания сохранены в этом браузере. Для других нужен сервер.";
+        sharedStatus.classList.add("is-offline");
+        localMessages.slice(-10).forEach((entry, index) => scheduleFallingLetter(entry, index * 900));
+        return;
+      }
+
+      const stream = new EventSource("/api/events");
+      stream.onopen = () => {
+        sharedReady = true;
+        sharedStatus.textContent = "Общая лента подключена — новые послания видят все посетители.";
+        sharedStatus.classList.remove("is-offline");
+      };
+      stream.onmessage = (event) => {
+        try { scheduleFallingLetter(JSON.parse(event.data), 0); }
+        catch { /* Ignore malformed events and keep the shared connection alive. */ }
+      };
+      stream.onerror = () => {
+        sharedReady = false;
+        sharedStatus.textContent = "Подключаем общую ленту…";
+        sharedStatus.classList.add("is-offline");
+      };
+
+      try {
+        const response = await fetch("/api/messages?limit=20", { cache: "no-store" });
+        if (!response.ok) throw new Error("Shared server is unavailable");
+        const data = await response.json();
+        sharedReady = true;
+        sharedStatus.textContent = "Общая лента подключена — новые послания видят все посетители.";
+        sharedStatus.classList.remove("is-offline");
+        (data.messages || []).forEach((entry, index) => scheduleFallingLetter(entry, index * 1100));
+      } catch {
+        sharedReady = false;
+        sharedStatus.textContent = "Общий сервер пока недоступен. Проверь запуск сайта.";
+        sharedStatus.classList.add("is-offline");
+      }
+    }
+
+    customForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const text = customMessageField.value.trim();
+      if (!text) {
+        customStatus.textContent = "Сначала напиши послание.";
+        customMessageField.focus();
+        return;
+      }
+
+      const entry = {
+        name: senderNameField.value.trim() || "Аноним",
+        text
+      };
+
+      if (isLocalFile) {
+        entry.id = "local-" + Date.now() + "-" + Math.random();
+        const saved = saveLocalMessage(entry);
+        scheduleFallingLetter(entry, 0);
+        customStatus.textContent = saved
+          ? "Письмо упало и сохранено в этом браузере. Для всех нужен сервер."
+          : "Письмо упало, но браузер не сохранил его. Для всех нужен сервер.";
+        customMessageField.value = "";
+        return;
+      }
+
+      if (!sharedReady) {
+        customStatus.textContent = "Общая лента не подключена — послание пока не отправлено.";
+        return;
+      }
+
+      sendLetterButton.disabled = true;
+      try {
+        const response = await fetch("/api/messages", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(entry)
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Не удалось отправить послание.");
+        scheduleFallingLetter(result.message, 0);
+        customStatus.textContent = "Отправлено — письмо увидят все подключённые посетители ❤";
+        customMessageField.value = "";
+      } catch (error) {
+        customStatus.textContent = error.message || "Не удалось связаться с сервером.";
+      } finally {
+        sendLetterButton.disabled = false;
+      }
+    });
+
+    document.querySelector("#clearMessage").addEventListener("click", () => {
+      customMessageField.value = "";
+      customStatus.textContent = "Текст очищен.";
+      customMessageField.focus();
+    });
+
+    gameToggle.addEventListener("click", () => {
+      if (gameRunning) {
+        finishGame("Игра остановлена. Собрано сердечек: " + score + ".");
+        return;
+      }
+      startGame();
+    });
+
+    function startGame() {
+      gameRunning = true;
+      gameSeconds = 15;
+      score = 0;
+      gameTime.textContent = gameSeconds;
+      gameScore.textContent = score;
+      gameProgress.value = gameSeconds;
+      gameMessage.textContent = "Лови сердечки, пока не вышло время!";
+      gamePanel.hidden = false;
+      gameToggle.textContent = "⏹️ Завершить игру";
+      spawnGameHeart();
+
+      gameClock = window.setInterval(() => {
+        gameSeconds -= 1;
+        gameTime.textContent = gameSeconds;
+        gameProgress.value = gameSeconds;
+        if (gameSeconds <= 0) finishGame("Время! Ты собрала " + score + " сердечек ❤");
+      }, 1000);
+    }
+
+    function spawnGameHeart() {
+      if (!gameRunning) return;
+      if (gameHeart) gameHeart.remove();
+
+      const target = document.createElement("button");
+      target.type = "button";
+      target.className = "catch-heart";
+      target.textContent = Math.random() < .5 ? "💖" : "💗";
+      target.setAttribute("aria-label", "Собрать сердечко");
+      const maxX = Math.max(8, window.innerWidth - 70);
+      const maxY = Math.max(8, window.innerHeight - 78);
+      target.style.left = 8 + Math.random() * (maxX - 8) + "px";
+      target.style.top = 8 + Math.random() * (maxY - 8) + "px";
+      target.addEventListener("click", () => {
+        if (!gameRunning) return;
+        score += 1;
+        gameScore.textContent = score;
+        target.remove();
+        gameHeart = null;
+        window.setTimeout(spawnGameHeart, 180);
+      });
+      gameHeart = target;
+      document.body.appendChild(target);
+    }
+
+    function finishGame(message) {
+      gameRunning = false;
+      window.clearInterval(gameClock);
+      gameClock = null;
+      if (gameHeart) gameHeart.remove();
+      gameHeart = null;
+      if (score > bestScore) {
+        bestScore = score;
+        gameBest.textContent = bestScore;
+        storageSet("envy-love-best", String(bestScore));
+      }
+      gameMessage.textContent = message + " Рекорд: " + bestScore + ".";
+      gameToggle.textContent = "💘 Сыграть ещё раз";
+    }
+
+
+    // Впиши дату, с которой вы вместе, в формате "2025-02-14" — тогда под надписью появится счётчик дней.
+    const TOGETHER_SINCE = "";
+
+    function plural(n) {
+      const a = n % 10, b = n % 100;
+      return b > 10 && b < 15 ? "дней" : a === 1 ? "день" : a > 1 && a < 5 ? "дня" : "дней";
+    }
+
+    (function initTogether() {
+      const box = document.querySelector("#together");
+      const start = new Date(TOGETHER_SINCE + "T00:00:00");
+      if (!TOGETHER_SINCE || isNaN(start)) return;
+      const days = Math.max(0, Math.floor((Date.now() - start) / 86400000));
+      box.innerHTML = "Мы вместе уже <strong>" + days + "</strong> " + plural(days) + " ❤";
+      box.classList.add("is-on");
+    })();
+
+    (function initSky() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const sky = document.querySelector(".sparkles");
+      function shoot() {
+        const star = document.createElement("span");
+        star.className = "shooting-star";
+        star.style.left = Math.random() * 60 + "%";
+        star.style.top = Math.random() * 45 + "%";
+        sky.appendChild(star);
+        star.addEventListener("animationend", () => star.remove(), { once: true });
+        window.setTimeout(shoot, 3500 + Math.random() * 4500);
+      }
+      window.setTimeout(shoot, 1800);
+
+      let lastTrail = 0;
+      window.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse") return;
+        const now = performance.now();
+        if (now - lastTrail < 70) return;
+        lastTrail = now;
+        const dot = document.createElement("span");
+        dot.className = "heart-particle";
+        dot.textContent = Math.random() < .5 ? "✨" : "💗";
+        dot.style.fontSize = ".9rem";
+        dot.style.left = event.clientX + "px";
+        dot.style.top = event.clientY + "px";
+        dot.style.setProperty("--drift", (Math.random() - .5) * 40 + "px");
+        dot.setAttribute("aria-hidden", "true");
+        document.body.appendChild(dot);
+        window.setTimeout(() => dot.remove(), 1300);
+      });
+    })();
+
+    connectSharedBoard();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
